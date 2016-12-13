@@ -48,8 +48,11 @@ tr>* {
 th {
   font-family: monospace;
 }
-th.active {
+th.active-full {
   background-color: red;
+}
+th.active-empty {
+  background-color: green;
 }
 td:nth-child(2) {
   font-size: 150%;

@@ -10,38 +10,41 @@
             <h2>Floor schematics</h2>
             <table>
                 <tr ng-repeat="floor in floors">
-                    <th scope="row" ng-class="car.active(floor.n) && 'active'">
+                    <th scope="row" ng-class="car.active(floor.n) && (car.occupied?'active-full':'active-empty')">
                         <span ng-show="car.active(floor.n)" ng-bind="car.state()"></span>
                     </th>
                     <td>{{floor.title}}</th>
-                    <td ng-class="floor.light">&#x25cf;</td>
                     <td>
-                        <button type="button">Call</button>
+                        <button type="button" ng-click="car.call(floor.n)">Call</button>
                         <button type="button" ng-click="car.openDoor()" ng-disabled="!car.canOpen(floor.n)">Open door</button>
                     </td>
-                    <tr></table>
-                </section>
+                </tr>
+            </table>
+        </section>
 
-                <section>
-                    <h2>Controls in car</h2>
-                    <ul>
-                        <li ng-repeat="floor in floors">
-                            <button type="button" ng-disabled="!car.occupied" ng-click="panel.press(floor.n)" ng-class="panel.btnClass(floor.n)">{{floor.title}}</button>
-                        </li>
-                        <li>
-                            <button class="stop" type="button" ng-disabled="!car.occupied" ng-click="panel.stop()">STOP</button>
-                        </li>
-                        <li>
-                            <button type="button" ng-disabled="!car.open" ng-click="car.closeDoor()">Close door</button>
-                        </li>
-                    </ul>
-                </section>
+        <section>
+            <h2>Controls in car</h2>
+            <ul>
+                <li ng-repeat="floor in floors">
+                    <button type="button" ng-disabled="!car.occupied" ng-click="panel.press(floor.n)" ng-class="panel.btnClass(floor.n)">{{floor.title}}</button>
+                </li>
+                <li>
+                    <button type="button" ng-disabled="car.open" ng-click="car.openDoor()" >Open door</button>
+                </li>
+                <li>
+                    <button type="button" ng-disabled="!car.open" ng-click="car.closeDoor()">Close door</button>
+                </li>
+            </ul>
+        </section>
 
-                <section>
-                    <h2>User controls</h2>
-                    <button type="button">Open car door</button>
-                    <button type="button" ng-click="car.stepIn()">Step in</button>
-                    <button type="button" ng-click="car.stepOut()">Step out</button>
-                </section>
-            </body>
-        </html>
+        <section>
+            <h2>User controls</h2>
+            <button type="button" ng-disabled="car.open" ng-click="car.openDoor()">Open car door</button>
+            <button type="button" ng-disabled="!car.open" ng-click="car.closeDoor()">Close car door</button>
+            <button type="button" ng-disabled="car.occupied" ng-click="car.stepIn()">Step in</button>
+            <button type="button" ng-disabled="!car.occupied" ng-click="car.stepOut()">Step out</button>
+            <br>
+            How many floors:<input type="number" ng-model="howManyFloors">
+        </section>
+    </body>
+</html>
